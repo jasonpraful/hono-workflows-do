@@ -34,13 +34,12 @@ export class DOWorkflows extends DurableObject<HonoEnv['Bindings']> {
 		return workflows.some((workflow) => workflow.id === id);
 	}
 
-	async reset() {
+	async reset(id: string) {
 		const workflows = await this.getStoredWorkflows();
 		for (const workflow of workflows) {
 			if (workflow.type === 'ai' && workflow.image_key) {
 				try {
-					await this.env.AI_IMAGES_BUCKET.delete(`${this.ctx.id}/${workflow.image_key}`);
-					console.log(`Deleted image ${this.ctx.id}/${workflow.image_key}`);
+					await this.env.AI_IMAGES_BUCKET.delete(`${id}/${workflow.image_key}`);
 				} catch (e) {
 					console.error(e);
 				}
