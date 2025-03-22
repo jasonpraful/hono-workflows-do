@@ -1,0 +1,138 @@
+{
+	"$schema": "../../node_modules/wrangler/config-schema.json",
+	"name": "hono-workflows-service",
+	"main": "src/index.tsx",
+	"compatibility_date": "2025-03-21",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": {
+		"enabled": true,
+		"head_sampling_rate": 1
+	},
+	"placement": { "mode": "smart" },
+	"vars": {
+		"ENVIRONMENT": "dev"
+	},
+	"env": {
+		"dev": {
+			"durable_objects": {
+				"bindings": [
+					{
+						"class_name": "DOWorkflows",
+						"name": "DURABLE_OBJECTS"
+					}
+				]
+			},
+			"r2_buckets": [
+				{
+					"bucket_name": "demo-hono-workflows-generated-images",
+					"binding": "AI_IMAGES_BUCKET"
+				}
+			]
+		},
+		"dev-bindings": {
+			"vars": {
+				"ENVIRONMENT": "dev-bindings"
+			},
+			"durable_objects": {
+				"bindings": [
+					{
+						"class_name": "DOWorkflows",
+						"name": "DURABLE_OBJECTS"
+					}
+				]
+			},
+			"r2_buckets": [
+				{
+					"bucket_name": "demo-hono-workflows-generated-images",
+					"binding": "AI_IMAGES_BUCKET"
+				}
+			],
+			"workflows": [
+				{
+					"binding": "TIMER_WORKFLOW",
+					"class_name": "TimerWorkflow",
+					"name": "timer-workflow",
+					"script_name": "workflows"
+				},
+				{
+					"binding": "AI_WORKFLOW",
+					"class_name": "AiWorkflow",
+					"name": "ai-workflow",
+					"script_name": "workflows"
+				}
+			]
+		},
+
+		"prod": {
+			"workers_dev": false,
+			"routes": [
+				{
+					"pattern": "hono-workflow.jasonpraful.co.uk",
+					"custom_domain": true
+				}
+			],
+			"vars": {
+				"ENVIRONMENT": "production"
+			},
+			"durable_objects": {
+				"bindings": [
+					{
+						"class_name": "DOWorkflows",
+						"name": "DURABLE_OBJECTS"
+					}
+				]
+			},
+			"r2_buckets": [
+				{
+					"bucket_name": "demo-hono-workflows-generated-images",
+					"binding": "AI_IMAGES_BUCKET"
+				}
+			],
+			"workflows": [
+				{
+					"binding": "TIMER_WORKFLOW",
+					"class_name": "TimerWorkflow",
+					"name": "demo-timer-workflow",
+					"script_name": "workflows"
+				},
+				{
+					"binding": "AI_WORKFLOW",
+					"class_name": "AiWorkflow",
+					"name": "demo-ai-workflow",
+					"script_name": "workflows"
+				}
+			]
+		}
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_classes": ["DOWorkflows"]
+		}
+	]
+	// "vars": {
+	//   "MY_VAR": "my-variable"
+	// },
+	// "kv_namespaces": [
+	//   {
+	//     "binding": "MY_KV_NAMESPACE",
+	//     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	//   }
+	// ],
+	// "r2_buckets": [
+	//   {
+	//     "binding": "MY_BUCKET",
+	//     "bucket_name": "my-bucket"
+	//   }
+	// ],
+	// "d1_databases": [
+	//   {
+	//     "binding": "MY_DB",
+	//     "database_name": "my-database",
+	//     "database_id": ""
+	//   }
+	// ],
+	// "ai": {
+	//   "binding": "AI"
+	// },
+}

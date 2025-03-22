@@ -1,0 +1,23 @@
+{
+	"name": "@jasonpraful/hono-workflows-core",
+	"module": "src/index.ts",
+	"type": "module",
+	"scripts": {
+		"dev": "wrangler dev",
+		"dev-bindings": "wrangler dev --env=dev-bindings -c wrangler.jsonc -c ../workflows/wrangler.jsonc",
+		"deploy": "wrangler deploy --env=prod --minify"
+	},
+	"dependencies": {
+		"@hono/swagger-ui": "^0.5.1",
+		"@hono/zod-openapi": "^0.19.2",
+		"hono": "^4.7.5",
+		"uuid": "^11.1.0",
+		"zod": "^3.24.2"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20250320.0",
+		"@types/bun": "latest",
+		"typescript": "^5",
+		"wrangler": "4.4.0"
+	}
+}

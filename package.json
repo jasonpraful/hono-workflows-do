@@ -1,0 +1,16 @@
+{
+	"name": "@jasonpraful/cloudflare-monorepo-template",
+	"type": "module",
+	"private": true,
+	"workspaces": [
+		"functions/*"
+	],
+	"scripts": {
+		"dev-bindings": "bun --filter '@jasonpraful/*' dev-bindings"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20250320.0",
+		"@types/bun": "latest",
+		"typescript": "^5"
+	}
+}
