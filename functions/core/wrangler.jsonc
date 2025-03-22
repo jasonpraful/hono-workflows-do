@@ -64,6 +64,7 @@
 		},
 
 		"prod": {
+			"name": "hono-workflows-service",
 			"workers_dev": false,
 			"routes": [
 				{
