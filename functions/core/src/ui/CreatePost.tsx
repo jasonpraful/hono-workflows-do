@@ -74,6 +74,12 @@ const CreatePost: FC = async () => {
                             alert('Duration must be greater than 0')
                             return
                         }
+
+                        if (document.getElementById('duration').value > 3600) {
+                            alert('Duration must be less than 1 hour')
+                            return
+                        }
+
                         await fetch('/api/timer', {
                             method: 'POST',
                             headers: {

@@ -80,6 +80,12 @@ app.get(
 				<html>
 					<head>
 						<meta charset="UTF-8" />
+						<meta name="description" content="Demo of Hono with Durable Objects and Workflows." />
+						<meta name="keywords" content="Hono, Durable Objects, Workflows, JavaScript, TypeScript" />
+						<meta name="author" content="Jason Praful" />
+						<meta property="og:title" content="Hono + Durable Objects + Workflows" />
+						<meta property="og:description" content="Demo of Hono with Durable Objects and Workflows." />
+						<meta property="og:type" content="website" />
 						<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 						<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 						<title>Hono + Durable Objects + Workflows</title>
@@ -96,8 +102,14 @@ app.get(
 app.get('/', (c) => {
 	return c.render(
 		<Suspense fallback={<div>loading...</div>}>
-			<div className="flex items-center ">
-				<div className="text-4xl">Welcome to Hono Workflows Boilerplate</div>
+			<div className="flex flex-col items-center justify-center md:justify-center md:items-center md:h-screen gap-4">
+				<div className="text-4xl">Welcome to Hono Workflows</div>
+				<p className="text-lg text-gray-600">Demo of Hono with Durable Objects and Workflows. Get started by creating a new workflow.</p>
+				<div className="flex space-x-4">
+					<a href="/workflow/new" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+						Create New Workflow
+					</a>
+				</div>
 			</div>
 		</Suspense>
 	);
@@ -118,7 +130,6 @@ app.get('/workflow/:id', async (c) => {
 		</Suspense>
 	);
 });
-
 
 // RPC Client
 export const client = hc<typeof app>('http://0.0.0.0:8787/');

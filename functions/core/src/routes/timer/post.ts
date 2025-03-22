@@ -36,11 +36,33 @@ const route = createRoute({
 			},
 			description: 'Workflow Response',
 		},
+		400: {
+			content: {
+				'application/json': {
+					schema: z.object({
+						success: z.boolean(),
+						message: z.string(),
+					}),
+				},
+			},
+			description: 'Bad Request',
+		},
 	},
 });
 
 const handler: RouteHandler<typeof route, HonoEnv> = async (c) => {
 	const { duration = 30 } = c.req.valid('json');
+
+	if (duration > 3600) {
+		return c.json(
+			{
+				success: false,
+				message: 'Duration must be less than 1 hour',
+			},
+			400
+		);
+	}
+
 	let workflowId = 'unavailable';
 
 	if (c.env.TIMER_WORKFLOW) {
@@ -51,7 +73,7 @@ const handler: RouteHandler<typeof route, HonoEnv> = async (c) => {
 	return c.json({
 		success: workflowId == 'unavailable' ? false : true,
 		workflowId,
-	});
+	}, 200);
 };
 
 export { route as postTimerRoute, handler as postTimerHandler };

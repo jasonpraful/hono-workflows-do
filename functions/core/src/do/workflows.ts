@@ -2,16 +2,16 @@ import { DurableObject } from 'cloudflare:workers';
 
 export type Workflow =
 	| {
-			id: string;
-			type: 'timer';
-			duration: number;
-	  }
+		id: string;
+		type: 'timer';
+		duration: number;
+	}
 	| {
-			id: string;
-			type: 'ai';
-			prompt: string;
-			image_key: string;
-	  };
+		id: string;
+		type: 'ai';
+		prompt: string;
+		image_key: string;
+	};
 
 export class DOWorkflows extends DurableObject<HonoEnv['Bindings']> {
 	private async getStoredWorkflows(): Promise<Array<Workflow>> {
@@ -45,7 +45,7 @@ export class DOWorkflows extends DurableObject<HonoEnv['Bindings']> {
 				}
 			}
 		}
-		await this.ctx.storage.delete('workflows');
+		await this.ctx.storage.deleteAll();
 		return 'Workflows reset';
 	}
 }
