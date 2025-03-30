@@ -25,7 +25,7 @@ const route = createRoute({
 
 const handler: RouteHandler<typeof route, HonoEnv> = async (c) => {
 	try {
-		await c.var.doStub.reset(c.var.userId);
+		await c.var.doStub.reset();
 		return c.text('OK', { status: 200 });
 	} catch (e: unknown) {
 		if (e instanceof Error) {

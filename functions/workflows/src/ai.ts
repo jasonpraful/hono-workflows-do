@@ -30,15 +30,11 @@ export class AiWorkflow extends WorkflowEntrypoint<Env, Params> {
 				},
 			},
 			async () => {
-				try {
-					const response = await this.env.AI.run('@cf/black-forest-labs/flux-1-schnell', { prompt });
-					if (!response.image) throw new Error('No image generated');
+				const response = await this.env.AI.run('@cf/black-forest-labs/flux-1-schnell', { prompt });
+				if (!response.image) throw new Error('No image generated');
 
-					const binaryString = atob(response.image);
-					return binaryString;
-				} catch (e) {
-					throw new Error('Error generating image');
-				}
+				const binaryString = atob(response.image);
+				return binaryString;
 			}
 		);
 

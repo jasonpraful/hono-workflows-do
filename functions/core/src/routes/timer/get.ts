@@ -59,7 +59,7 @@ const handler: RouteHandler<typeof route, HonoEnv> = async (c) => {
 	const { workflowId } = c.req.param();
 	if (!c.env.TIMER_WORKFLOW) return c.json({ success: false, message: 'Service Currently Disabled' }, { status: 500 });
 	try {
-		const userHasWorkflow = await c.var.doStub.userHasWorkflow(workflowId);
+		const userHasWorkflow = await c.var.doStub.userHasWorkflow();
 		if (!userHasWorkflow) return c.json({ success: false, message: 'Workflow not found' }, { status: 404 });
 
 		const workflow = await c.env.TIMER_WORKFLOW.get(workflowId);

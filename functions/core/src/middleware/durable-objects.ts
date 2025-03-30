@@ -15,6 +15,11 @@ const durableObjectIdMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
 	}
 	const id = c.env.DURABLE_OBJECTS.idFromName(doId);
 	const stub = c.env.DURABLE_OBJECTS.get(id);
+	// Ideally, just idFromName should allow `.id.name` to be used directly inside the Durable Object.
+	// Work around until the issue is resolved.
+	// Ref: https://github.com/cloudflare/workerd/issues/2240
+	await stub.setName(doId);
+
 	c.set('doStub', stub);
 	c.set('userId', doId);
 	await next();

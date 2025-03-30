@@ -4,6 +4,8 @@ import { useRequestContext } from 'hono/jsx-renderer';
 const Layout: FC<{ children: Child }> = async ({ children }) => {
 	const context = useRequestContext<HonoEnv>();
 	const state = await context.var.doStub.getWorkflows();
+	const alarm = await context.var.doStub.getAlarm();
+
 	return (
 		<body>
 			<div className="min-h-screen bg-gray-100">
@@ -54,8 +56,6 @@ const Layout: FC<{ children: Child }> = async ({ children }) => {
 													<b>AI:</b> {workflow.prompt}
 												</>
 											)}
-
-											{/* {workflow.type === 'timer' ? 'Timer: unknowns' : 'AI'} */}
 										</a>
 									</li>
 								))}
@@ -91,6 +91,15 @@ const Layout: FC<{ children: Child }> = async ({ children }) => {
 									<a href="/swagger" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800">
 										API Docs
 									</a>
+								</div>
+								<div className="bg-gray-50 rounded-md p-3 text-xs text-gray-600">
+									<p>
+										Your workspace data is automatically preserved for 30 days from your last activity. Any interaction refreshes this
+										period, ensuring your work is maintained while you're active.
+									</p>
+									<p className="mt-2">
+										Resetting on: <span className="font-medium">{alarm ? new Date(alarm).toLocaleString() : 'N/A'}</span>
+									</p>
 								</div>
 							</div>
 						</div>
