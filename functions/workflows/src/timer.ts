@@ -1,7 +1,9 @@
 import { WorkflowEntrypoint, WorkflowEvent, WorkflowStep } from 'cloudflare:workers';
 
 interface Env {}
-type Params = { duration: number };
+interface Params {
+	duration: number;
+}
 
 export class TimerWorkflow extends WorkflowEntrypoint<Env, Params> {
 	async run(event: WorkflowEvent<Params>, step: WorkflowStep) {

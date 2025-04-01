@@ -27,7 +27,7 @@ bun run dev-bindings
 
 Cloudflare docs on workflows are bad, and there are no examples on how to trigger a workflow locally from another worker. The docs around services don't work for workflows, while it does for Durable Objects. The instructions around how to use `script_name` is very vague.
 
-Secondly, Wrangler docs do not mention how to implement "Cross Script Calls" properly, there are no examples on how to do this. When you run both instances - workflow, and the service (hono), the service fails to bind to the workflow. The only way would be to run workflow with both the service and the workflow config (ref: functions/core/package.json#scripts.dev-binding).
+Secondly, Wrangler docs do not mention how to implement "Cross Script Calls" properly, there are no examples on how to do this. When you run both instances - workflow, and the service (hono), the service fails to bind to the workflow. The only way would be to run wrangler with both the service and the workflow config (ref: functions/core/package.json#scripts.dev-binding).
 
 Ref:
 

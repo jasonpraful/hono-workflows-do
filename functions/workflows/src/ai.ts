@@ -4,11 +4,11 @@ interface Env {
 	AI: Ai;
 	AI_IMAGES_BUCKET: R2Bucket;
 }
-type Params = {
+interface Params {
 	prompt: string;
 	user_id: string;
 	image_key: string;
-};
+}
 
 export class AiWorkflow extends WorkflowEntrypoint<Env, Params> {
 	async run(event: WorkflowEvent<Params>, step: WorkflowStep) {

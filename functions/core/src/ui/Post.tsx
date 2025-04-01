@@ -30,9 +30,6 @@ const Post: FC<{ id: string }> = async ({ id }) => {
 			let w = await c.env.AI_WORKFLOW.get(workflow.id);
 			status = await w.status();
 		}
-		if (status.status === 'errored') {
-			console.log('Error in workflow:', JSON.stringify(status));
-		}
 	} catch (e) {
 		let error = e as unknown as WorkflowError;
 		if (error.message == 'instance.not_found') {
@@ -57,7 +54,8 @@ const Post: FC<{ id: string }> = async ({ id }) => {
 					</p>
 				)}
 				<p className="text-gray-700">
-					<span className="font-medium">Output:</span> {status?.output}
+					{/* @ts-expect-error - Incorrect types shipped from CF for error */}
+					<span className="font-medium">Output:</span> {status.output || status.error?.message || 'N/A'}
 				</p>
 
 				{workflow.type === 'ai' && (
