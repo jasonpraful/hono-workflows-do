@@ -4,6 +4,11 @@
 	"main": "src/index.tsx",
 	"compatibility_date": "2025-03-21",
 	"compatibility_flags": ["nodejs_compat"],
+	"tail_consumers": [
+		{
+			service: "hono-workflows-service-tail"
+		}
+	],
 	"observability": {
 		"enabled": true,
 		"head_sampling_rate": 1
