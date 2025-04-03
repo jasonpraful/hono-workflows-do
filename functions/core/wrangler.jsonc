@@ -6,7 +6,7 @@
 	"compatibility_flags": ["nodejs_compat"],
 	"tail_consumers": [
 		{
-			service: "hono-workflows-service-tail"
+			"service": "hono-workflows-service-tail"
 		}
 	],
 	"observability": {
